@@ -9,8 +9,10 @@
 
 - Used the absolute jocco.CSS path (you should change it to yours) so that you can create a jocco command:
 
+~~~
 	#!/bin/bash
 	julia /home/ben/Documents/installs/jocco/jocco.jl $1
+~~~
 
 - Then you can simply call:
 

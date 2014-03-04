@@ -16,12 +16,15 @@
 
 - Then you can simply call:
 
+~~~
 	jocco myfile.jl
+~~~
 
 #Bug
 
 - There is a problem with the parser. The comment blocks are one level above the code blocks. It shows on the jocco examples for the first code blocks but get fixed ater because of the white line in the html header. An ugly fix before a real one is thus to start your source file as follows:
 
+~~~
 	#This is my awesome package which does such and such.
 	"
 
@@ -31,6 +34,7 @@
 	function great()
 		println("great!")
 	end
+~~~
 
 	
 

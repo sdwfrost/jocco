@@ -47,7 +47,7 @@ const header = "<!DOCTYPE html>
 <head>
   <title>%title%</title>
   <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">
-  <link rel=\"stylesheet\" media=\"all\" href=\"jocco.css\" />
+  <link rel=\"stylesheet\" media=\"all\" href=\"/home/ben/Documents/installs/jocco/docs/jocco.css\" />
   <script type=\"text/javascript\"
     src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\">
   </script>

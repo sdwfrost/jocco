@@ -275,9 +275,9 @@ function highlight_docs(docs, path)
 
     cmd = `pandoc $pan_args`
     for p in pan_files
-        cmd = cmd | `runhaskell $p`
+        cmd = cmd |> `runhaskell $p`
     end
-    cmd  = cmd | `pandoc -S --mathjax -f json -t html`
+    cmd  = cmd |> `pandoc -S --mathjax -f json -t html`
 
     docs = highlight(docs, docs_sep, docs_sep_html, cmd)
 

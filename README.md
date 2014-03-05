@@ -1,13 +1,6 @@
-#Changes
+#Use
 
-- Moved haskell source files to a temporary folder. This means loosing these (non-essential) functionalities:
-	
-	- Code highlighting in documentation comments.
-	- Hyperlinks for doi.
-
-- Fixed some outdated Julia syntax.
-
-- Used the absolute jocco.CSS path (you should change it to yours) so that you can create a jocco command:
+- Change the absolute jocco.CSS path and create a jocco command:
 
 ~~~
 	#!/bin/bash
@@ -20,24 +13,30 @@
 	jocco myfile.jl
 ~~~
 
-#Bug
+- Use a whitespace to send a comment to the doc side, and no whitespace to keep it inline.
 
-- There is a problem with the parser. The comment blocks are one level above the code blocks. It shows on the jocco examples for the first code blocks but get fixed ater because of the white line in the html header. An ugly fix before a real one is thus to start your source file as follows:
+	`# A doc comment.`
+	`#An inline comment.`
 
-~~~
-	#This is my awesome package which does such and such.
-	"
+#Changes
 
-	"
+- Fixed a bug which made the code be always one block behind the comments:
 
-	#Here is my first function. It's great.
-	function great()
-		println("great!")
-	end
-~~~
+	- removed `unshift!(code,"")` line from `highlight_code()` (not sure why it was there to start with).
+	- fixed `m.captures == (nothing,)` to `m.captures == [nothing,]`  and  `(doc_line,) = m.captures` to `doc_line = m.captures[1]` (I guess Julia's syntax changed). 
 
+- Moved haskell source files to a temporary folder. This means loosing these (non-essential) functionalities:
 	
+	- Code highlighting in documentation comments.
+	- Hyperlinks for doi.
 
+- Fixed some outdated Julia syntax.
+
+- Used absolute jocco.CSS path.
+
+#UTF8
+
+On some files, the `docs` text comes out (of pandoc) as UTF8. Uncomment the line `#push!(docs, convert(UTF8String,""))`. (to do: conditional)
 
 #Original README
                              o

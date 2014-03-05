@@ -120,13 +120,20 @@ function parse_source(source)
     while (!eof(f))
         line = readline(f)
         line = chomp(line)
+
+        #will catch non-empty comments AND empty lines (m.captures == [nothing,])
+        #empty lines are treated as code
         m = match(r"^\s*(?:#\s(.*?)\s*$|$)", line)
+        #will catch empty comments
         if m == nothing
             m = match(r"^\s*#()$", line)
         end
-        if m == nothing || m.captures == (nothing,)
+        
+        #m is a code line (including empty lines)
+        if m == nothing || m.captures == [nothing,]
             has_code = true
             code_text = "$code_text$line\n"
+        #m is a comment line
         else
             if has_code
                 push!(code, code_text)
@@ -135,7 +142,7 @@ function parse_source(source)
                 has_code = false
                 code_text, docs_text = "", ""
             end
-            (doc_line,) = m.captures
+            doc_line = m.captures[1]
             if(doc_line != nothing)
                 docs_text = "$docs_text$doc_line\n"
             end
@@ -199,7 +206,6 @@ function highlight_code(code)
         code[1] = replace(code[1], "<div class=\"highlight\"><pre>", "")
         code[length(code)] = replace(code[length(code)], "</pre></div>", "")
     end
-    unshift!(code,"")
     code
 end
 
@@ -296,6 +302,7 @@ function generate_html(source, path, file, code, docs, jump_to)
 
     # Pad code and docs arrays so they have the same number of lines
     while (length(docs) < lines)
+        #push!(docs, convert(UTF8String,""))
         push!(docs, "")
     end
     while (length(code) < lines)

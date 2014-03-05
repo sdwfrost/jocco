@@ -15,8 +15,10 @@
 
 - Use a whitespace to send a comment to the doc side, and no whitespace to keep it inline.
 
+~~~
 	# A doc comment.
 	#An inline comment.
+~~~
 
 #Changes
 

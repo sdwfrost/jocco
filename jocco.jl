@@ -332,6 +332,8 @@ end
 # Documentation is generated in the `doc` directory for all of the files pass
 # in as arguments to this program.
 function main()
+    jocco_path = dirname(@__FILE__)
+    println(jocco_path)
     for source in ARGS
         source = abspath(source)
         path, file = splitdir(source)
@@ -342,7 +344,7 @@ function main()
         if !isdir(path)
             mkdir(path)
         end
-        cp("./docs/jocco.css", string(path,"/jocco.css"))
+        cp(string(jocco_path, "/docs/jocco.css"), string(path,"/jocco.css"))
 
         generate_documentation(source, path, file)
     end

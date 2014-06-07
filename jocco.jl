@@ -291,7 +291,7 @@ end
 
 # Here the generated code and documentation is substituted into the templates
 # and written to the HTML file.
-function generate_html(source, path, file, code, docs, jump_to)
+function generate_html(source, path, file, code, docs)
     outfile = joinpath(path, replace(file, r"jl$", "html"))
     f = open(outfile, "w")
 
@@ -323,16 +323,15 @@ function generate_html(source, path, file, code, docs, jump_to)
     println("$file --> $outfile")
 end
 
-function generate_documentation(source, path, file, jump_to)
+function generate_documentation(source, path, file)
     code, docs = parse_source(source)
     code, docs = highlight_code(code), highlight_docs(docs, path)
-    generate_html(source, path, file, code, docs, jump_to)
+    generate_html(source, path, file, code, docs)
 end
 
 # Documentation is generated in the `docs` directory for all of the files pass
 # in as arguments to this program.
 function main()
-    jump_to = ""
     for source in ARGS
         source = abspath(source)
         path, file = splitdir(source)
@@ -343,7 +342,7 @@ function main()
             mkdir(path)
         end
 
-        generate_documentation(source, path, file, jump_to)
+        generate_documentation(source, path, file)
     end
 end
 

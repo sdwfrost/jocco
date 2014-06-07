@@ -47,7 +47,7 @@ const header = "<!DOCTYPE html>
 <head>
   <title>%title%</title>
   <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">
-  <link rel=\"stylesheet\" media=\"all\" href=\"/home/ben/Documents/installs/jocco/docs/jocco.css\" />
+  <link rel=\"stylesheet\" media=\"all\" href=\"./jocco.css\" />
   <script type=\"text/javascript\"
     src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\">
   </script>
@@ -333,12 +333,15 @@ end
 # in as arguments to this program.
 function main()
     jump_to = ""
-
     for source in ARGS
-        file = chomp(readall(`basename $source`))
-        path = joinpath(chomp(readall(`dirname  $source`)), "docs")
-
-        run(`mkdir -p $path`)
+        source = abspath(source)
+        path, file = splitdir(source)
+        if split(path,"/")[end] == "src"
+            path = normpath(string(path,"/../doc"))
+        end
+        if !isdir(path)
+            mkdir(path)
+        end
 
         generate_documentation(source, path, file, jump_to)
     end

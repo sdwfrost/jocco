@@ -295,7 +295,7 @@ function generate_html(source, path, file, code, docs)
     outfile = joinpath(path, replace(file, r"jl$", "html"))
     f = open(outfile, "w")
 
-    h = replace(header, r"%title%", source)
+    h = replace(header, r"%title%", file)
     write(f, h)
 
     lines = max(length(docs), length(code))
@@ -329,18 +329,20 @@ function generate_documentation(source, path, file)
     generate_html(source, path, file, code, docs)
 end
 
-# Documentation is generated in the `docs` directory for all of the files pass
+# Documentation is generated in the `doc` directory for all of the files pass
 # in as arguments to this program.
 function main()
     for source in ARGS
         source = abspath(source)
         path, file = splitdir(source)
         if split(path,"/")[end] == "src"
-            path = normpath(string(path,"/../doc"))
+            path = normpath(string(path,"/.."))
         end
+        path = normpath(string(path,"/doc"))
         if !isdir(path)
             mkdir(path)
         end
+        cp("./docs/jocco.css", string(path,"/jocco.css"))
 
         generate_documentation(source, path, file)
     end

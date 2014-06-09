@@ -31,8 +31,6 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 #background {
-  position: fixed;
-  top: 0; left: 575px; right: 0; bottom: 0;
   background: #f5f5ff;
   border-left: 1px solid #e5e5ee;
   z-index: -1;
@@ -47,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
   text-align: right;
 }
 img {
-  max-width: 500px;
+  max-width: 100%;
 }
 #jump_to, #jump_wrapper {
   position: fixed;

@@ -48,8 +48,19 @@ const header = "<!DOCTYPE html>
   <title>%title%</title>
   <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">
   <link rel=\"stylesheet\" media=\"all\" href=\"./jocco.css\" />
+  <link rel=\"stylesheet\" href=\"http://dobtco.github.io/jquery-resizable-columns/dist/jquery.resizableColumns.css\">
   <script type=\"text/javascript\"
     src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\">
+  </script>
+  <!-- jQuery -->
+  <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js\"></script>
+  <script src=\"http://dobtco.github.io/jquery-resizable-columns/dist/jquery.resizableColumns.min.js\"></script>
+  <script>
+    \$(function(){
+      \$(\"table\").resizableColumns({
+        store: window.store
+      });
+    });
   </script>
 </head>
 <body>
@@ -58,12 +69,12 @@ const header = "<!DOCTYPE html>
     <table cellpadding=\"0\" cellspacing=\"0\">
       <thead>
         <tr>
-          <th class=\"docs\">
+          <th class=\"docs\" data-resizable-column-id=\"docs\">
             <h1>
               %title%
             </h1>
           </th>
-          <th class=\"code\">
+          <th class=\"code\" data-resizable-column-id=\"code\">
           </th>
         </tr>
       </thead>

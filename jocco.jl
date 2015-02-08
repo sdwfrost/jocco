@@ -110,7 +110,7 @@ const footer = "
 # ----------------------------------------------------------------------------
 # Parameters:
 # ----------- ----------------------------------------------------------------
-# `source`    An `ASCIIString`{.julia} of the document source to be parsed.
+# `source`    An `UTF8String`{.julia} of the document source to be parsed.
 # ----------------------------------------------------------------------------
 #
 # ----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ const footer = "
 # ----------------------------------------------------------------------------
 #
 function parse_source(source)
-    code, docs = ASCIIString[], ASCIIString[]
+    code, docs = UTF8String[], UTF8String[]
     f = open(source)
 
     has_code = false
@@ -214,8 +214,8 @@ function highlight_code(code)
     cmd = `pygmentize -l julia -f html -O encoding=utf8`
     code = highlight(code, code_sep, code_sep_html, cmd)
     if length(code) > 0
-        code[1] = replace(code[1], "<div class=\"highlight\"><pre>", "")
-        code[length(code)] = replace(code[length(code)], "</pre></div>", "")
+        code[1] = convert(UTF8String, replace(code[1], "<div class=\"highlight\"><pre>", ""))
+        code[length(code)] = convert(UTF8String, replace(code[length(code)], "</pre></div>", ""))
     end
     code
 end

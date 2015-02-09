@@ -200,7 +200,7 @@ function highlight(text_array, sep_in, sep_out, cmd)
     write(write_stream, join(text_array, sep_in))
     close(write_stream)
 
-    text_out = readall(read_stream)
+    text_out = convert(UTF8String, readall(read_stream))
     close(read_stream)
 
     split(text_out, sep_out)
@@ -213,6 +213,7 @@ end
 function highlight_code(code)
     cmd = `pygmentize -l julia -f html -O encoding=utf8`
     code = highlight(code, code_sep, code_sep_html, cmd)
+
     if length(code) > 0
         code[1] = convert(UTF8String, replace(code[1], "<div class=\"highlight\"><pre>", ""))
         code[length(code)] = convert(UTF8String, replace(code[length(code)], "</pre></div>", ""))

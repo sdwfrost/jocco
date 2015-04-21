@@ -292,9 +292,9 @@ function highlight_docs(docs, path)
 
     cmd = `pandoc $pan_args`
     for p in pan_files
-        cmd = cmd |> `runhaskell $p`
+        cmd = pipe(cmd, `runhaskell $p`)
     end
-    cmd  = cmd |> `pandoc -S --mathjax -f json -t html`
+    cmd  = pipe(cmd, `pandoc -S --mathjax -f json -t html`)
 
     docs = highlight(docs, docs_sep, docs_sep_html, cmd)
 
@@ -340,7 +340,7 @@ function generate_documentation(source, path, file)
     generate_html(source, path, file, code, docs)
 end
 
-# Documentation is generated in the `doc` directory for all of the files pass
+# Documentation is generated in the `docs` directory for all of the files pass
 # in as arguments to this program.
 function main()
     jocco_path = dirname(@__FILE__)
@@ -351,7 +351,7 @@ function main()
         if split(path,"/")[end] == "src"
             path = normpath(string(path,"/.."))
         end
-        path = normpath(string(path,"/doc"))
+        path = normpath(string(path,"/docs"))
         if !isdir(path)
             mkdir(path)
         end
